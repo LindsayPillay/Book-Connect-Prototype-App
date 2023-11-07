@@ -6,12 +6,13 @@ let currentPage = 1;
 let currentSearchPage = 1;
 let currentSearchResults = [];
 let theme = "night"
+
+// Define day and night themes
 const day = {
   dark: "10, 10, 20",
   light: "255, 255, 255",
 };
 
-// Define day and night themes
 const night = {
   dark: "255, 255, 255",
   light: "10, 10, 20",
@@ -39,15 +40,19 @@ function applyThemeToBook(bookElement, theme) {
  * @param {string} theme - The selected theme ('day' or 'night')
  */
 function showBooks(start, end, bookList, theme) {
+    // Find the element in the HTML document with the attribute 'data-list-items' and assign it to the variable booksContainer.
     const booksContainer = document.querySelector('[data-list-items]');
 
+    // Loop from 'start' to 'end'.
     for (let i = start; i < end; i++) {
         const book = bookList[i];
         if (!book) break;
 
+        // Create a button element and add the class 'preview' to it.
         const bookElement = document.createElement('button');
         bookElement.classList.add('preview');
 
+        // Create a container for book information.
         const bookInfoContainer = document.createElement('div');
         bookInfoContainer.classList.add('book-info');
 
@@ -56,6 +61,7 @@ function showBooks(start, end, bookList, theme) {
         flexContainer.style.display = 'flex';
         flexContainer.style.alignItems = 'center';
 
+        // Create an image element, add the class 'preview__image', and set its source and alt attributes.
         const imgElement = document.createElement('img');
         imgElement.classList.add('preview__image');
         imgElement.src = book.image;
@@ -64,14 +70,17 @@ function showBooks(start, end, bookList, theme) {
         // Create a container for book title and author
         const textContainer = document.createElement('div');
         textContainer.classList.add('text-container');
-
+        
+        // Create an h3 element for the title, add the class 'preview__title', and set its text content.
         const titleElement = document.createElement('h3');
         titleElement.classList.add('preview__title');
         titleElement.textContent = book.title;
 
+        // Get the author's ID and name from the 'authors' object.
         const authorId = book.author;
         const authorName = authors[authorId];
 
+        // Create a paragraph element for the author, add the class 'preview__author', and set its text content.
         const authorElement = document.createElement('p');
         authorElement.classList.add('preview__author');
         authorElement.textContent = `Author: ${authorName}`;
@@ -89,12 +98,16 @@ function showBooks(start, end, bookList, theme) {
         // Append text container to flex container
         flexContainer.appendChild(textContainer);
 
+        // Append the flex container to the book information container.
         bookInfoContainer.appendChild(flexContainer);
 
+        // Append the book information container to the button element.
         bookElement.appendChild(bookInfoContainer);
 
+        // Apply the specified theme to the book element.
         applyThemeToBook(bookElement, theme);
 
+        // Append the book element to the books container in the HTML document.
         booksContainer.appendChild(bookElement);
     }
 }
@@ -104,25 +117,45 @@ function showBooks(start, end, bookList, theme) {
  * @param {number} totalResults - The total number of results
  */
 function updateShowMoreButton(totalResults) {
+  // Check if there are current search results.
   if (currentSearchResults.length > 0) {
+
+    // Calculate the start and end indices for displaying a subset of search results.
     const start = currentSearchPage * booksPerPage;
     const end = start + booksPerPage;
+
+    // Calculate the number of remaining books.
     const remainingBooks = totalResults - end;
+
+    // Find the element in the HTML document with the attribute 'data-list-button' and assign it to the variable showMoreButton.
     const showMoreButton = document.querySelector("[data-list-button]");
+
+    // Set the text content of the showMoreButton based on the number of remaining books.
     showMoreButton.textContent =
       remainingBooks > 0
         ? `Show More (${remainingBooks})`
         : "No more books to show";
+
+    // Disable the showMoreButton if there are no remaining books.
     showMoreButton.disabled = remainingBooks <= 0;
   } else {
+     // Calculate the start and end indices for displaying a subset of search results.
     const start = currentPage * booksPerPage;
     const end = start + booksPerPage;
+
+    // Calculate the number of remaining books.
     const remainingBooks = totalResults - end;
+
+    // Find the element in the HTML document with the attribute 'data-list-button' and assign it to the variable showMoreButton.
     const showMoreButton = document.querySelector("[data-list-button]");
+
+    // Set the text content of the showMoreButton based on the number of remaining books.
     showMoreButton.textContent =
       remainingBooks > 0
         ? `Show More (${remainingBooks})`
         : "No more books to show";
+
+    // Disable the showMoreButton if there are no remaining books.
     showMoreButton.disabled = remainingBooks <= 0;
   }
 }
