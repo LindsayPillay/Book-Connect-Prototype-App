@@ -164,17 +164,32 @@ function updateShowMoreButton(totalResults) {
  * Loads more books when the "Show More" button is clicked
  */
 function showMoreBooks() {
+    // Check if there are current search results.
     if (currentSearchResults.length > 0) {
+      // Increment the current search page.
       currentSearchPage++;
+
+      // Calculate the start and end indices for displaying the next subset of search results.
       const start = (currentSearchPage - 1) * booksPerPage;
       const end = start + booksPerPage;
-      showBooks(start, end, currentSearchResults, theme); // Pass theme parameter
+
+      // Call the showBooks function with the specified range of search results and the current theme.
+      showBooks(start, end, currentSearchResults, theme);
+
+      // Update the "Show More" button based on the length of the current search results.
       updateShowMoreButton(currentSearchResults.length);
     } else {
+      // Increment the current page.
       currentPage++;
+
+      // Calculate the start and end indices for displaying the next subset of books.
       const start = (currentPage - 1) * booksPerPage;
       const end = start + booksPerPage;
-      showBooks(start, end, books, theme); // Pass theme parameter
+
+      // Call the showBooks function with the specified range of books and the current theme.
+      showBooks(start, end, books, theme);
+
+      // Update the "Show More" button based on the total number of books.
       updateShowMoreButton(books.length);
     }
   }
@@ -190,6 +205,8 @@ updateShowMoreButton(books.length);
 
 // Event listener for DOMContentLoaded to set up overlay functionality for summary of book
 document.addEventListener("DOMContentLoaded", () => {
+
+  // Get references to various elements in the overlay.
   const overlay = document.querySelector(".overlay");
   const overlayImage = overlay.querySelector(".overlay__image");
   const overlayTitle = overlay.querySelector(".overlay__title");
@@ -210,9 +227,12 @@ document.addEventListener("DOMContentLoaded", () => {
  * @param {boolean} isSearchPage - Indicates if the current page is a search result page
  */
   function openOverlay(index, isSearchPage) {
+    // Determine the selected book based on the index and whether it's a search page.
     const selectedBook = isSearchPage
       ? currentSearchResults[index]
       : books[index];
+
+    // Update overlay elements with details from the selected book.
     overlayImage.src = selectedBook.image;
     overlayBlur.src = selectedBook.image;
     overlayTitle.textContent = selectedBook.title;
@@ -220,14 +240,17 @@ document.addEventListener("DOMContentLoaded", () => {
       selectedBook.published
     ).getFullYear()})`;
     overlayDescription.textContent = selectedBook.description;
+
+    // Show the overlay as a modal dialog.
     overlay.showModal();
   }
 
-  // Event delegation: Listen for clicks on a parent element
+  // Event delegation: Listen for clicks on a parent element (delegation to improve performance).
   document.addEventListener("click", (event) => {
     const clickedElement = event.target;
     const previewElement = clickedElement.closest(".preview");
-
+    
+    // If a preview element was clicked, open the overlay with its corresponding book details.
     if (previewElement) {
       const index = Array.from(previewElement.parentElement.children).indexOf(
         previewElement
@@ -236,13 +259,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Add an event listener to the close button in the overlay.
   overlayCloseButton.addEventListener("click", () => {
+    // Close the overlay when the close button is clicked.
     overlay.close();
   });
 });
 
 // Event listener for DOMContentLoaded to set up search functionality
 document.addEventListener("DOMContentLoaded", function () {
+  // Get references to various elements on the page
   const searchButton = document.querySelector("[data-header-search]");
   const searchOverlay = document.querySelector("[data-search-overlay]");
   const searchCancel = document.querySelector("[data-search-cancel]");
@@ -264,7 +290,10 @@ document.addEventListener("DOMContentLoaded", function () {
     searchForm.reset(); // Reset the search form
   }
 
+  // Event listener to show the search overlay when search button is clicked
   searchButton.addEventListener("click", showSearchOverlay);
+  
+  // Event listener to hide the search overlay when cancel button is clicked
   searchCancel.addEventListener("click", hideSearchOverlay);
 
   // Add options to the genres dropdown
@@ -284,6 +313,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const authorList = document.createDocumentFragment();
   const presetAuthor = "All Authors";
   searchAuthorsSelect.innerHTML = `<option>${presetAuthor}</option>`;
+
   for (const [authorId, authorName] of Object.entries(authors)) {
     const authorSelect = document.createElement("option");
     authorSelect.innerText = `${authorName}`;
@@ -292,13 +322,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   searchAuthorsSelect.appendChild(authorList);
 
+  // Event listener to handle form submission for search
   searchForm.addEventListener("submit", function (event) {
     event.preventDefault();
     console.log("Search form submitted");
 
+    // Extract form data and create a filter object
     const formData = new FormData(searchForm);
     const filter = Object.fromEntries(formData);
     currentSearchResults = [];
+
+    // Loop through books to filter search results
     for (const book of books) {
       const titleMatch =
         filter.title.trim() === "" ||
@@ -307,6 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
         filter.author === "All Authors" || book.author.includes(filter.author);
       const genreMatch =
         filter.genre === "All Genres" || book.genres.includes(filter.genre);
+
       if (titleMatch && authorMatch && genreMatch) {
         currentSearchResults.push(book);
       }
@@ -314,18 +349,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log(currentSearchResults);
 
+    // Get references to various elements on the page
     const noResults = document.querySelector("[data-list-message]");
     const listButton = document.querySelector("[data-list-button]");
     const listItems = document.querySelector("[data-list-items]");
 
+    // Show or hide the "No results found" message
     if (currentSearchResults.length < 1) {
       noResults.classList.add("list__message_show");
     } else {
       noResults.classList.remove("list__message_show");
     }
 
+    // Disable or enable the "Show More" button based on search results
     listButton.disabled = currentSearchResults.length <= 36;
 
+    // Clear existing list items and display search results
     listItems.innerHTML = "";
     showBooks(
       0,
@@ -333,6 +372,7 @@ document.addEventListener("DOMContentLoaded", function () {
       currentSearchResults
     );
 
+    // Hide search overlay and scroll to top
     hideSearchOverlay();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
