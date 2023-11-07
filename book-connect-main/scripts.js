@@ -427,6 +427,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Event listener for DOMContentLoaded to set up settings functionality
 document.addEventListener("DOMContentLoaded", function () {
+  // Get references to various elements on the page
   const cssSelector = document.documentElement.style;
   const settingsButton = document.querySelector("[data-header-settings]");
   const settingsOverlay = document.querySelector("[data-settings-overlay]");
@@ -444,7 +445,10 @@ document.addEventListener("DOMContentLoaded", function () {
     settingsOverlay.close();
   }
 
+  // Event listener to show the settings overlay when settings button is clicked
   settingsButton.addEventListener("click", showSettingsOverlay);
+
+  // Event listener to hide the settings overlay when cancel button is clicked
   settingsCancel.addEventListener("click", hideSettingsOverlay);
 
   /**
@@ -456,6 +460,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeSelect =
       settingsTheme.options[settingsTheme.selectedIndex].value;
     theme = themeSelect;
+
+    // Apply selected theme to CSS variables
     if (theme === "day") {
       cssSelector.setProperty("--color-dark", day.dark);
       cssSelector.setProperty("--color-light", day.light);
@@ -479,6 +485,9 @@ document.addEventListener("DOMContentLoaded", function () {
       ? "day"
       : "night";
 
+  // Event listener for saving theme changes
   settingsSave.addEventListener("click", themeUpdate);
+
+  // Event listener for when user changes theme selection
   settingsTheme.addEventListener("change", themeUpdate);
 });
