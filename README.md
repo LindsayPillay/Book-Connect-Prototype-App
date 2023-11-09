@@ -8,5 +8,5 @@ This web app acts as an online library. It allows users to view books and sort t
 Programming languages used: HTML CSS JavaScript
 
 Presentation Link :
-https://docs.google.com/presentation/d/1pgRujEHiITFLgTY0N1l78M6Jvvtb2RYBOGQw0osmyCw/edit?usp=sharing
+https://www.canva.com/design/DAFza0r1keY/G97E7pwl_7kVW3ROfq5-8Q/edit?utm_content=DAFza0r1keY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 # LINPIL201_FTC2306_GroupA_LindsayPillay_IWA19

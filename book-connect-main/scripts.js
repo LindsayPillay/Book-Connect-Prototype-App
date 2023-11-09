@@ -5,7 +5,7 @@ let booksPerPage = BOOKS_PER_PAGE;
 let currentPage = 1;
 let currentSearchPage = 1;
 let currentSearchResults = [];
-let theme = "night"
+let theme = "night";
 
 // Define day and night themes
 const day = {
@@ -17,7 +17,6 @@ const night = {
   dark: "255, 255, 255",
   light: "10, 10, 20",
 };
-
 
 /**
  * Applies the selected theme to a book element
@@ -40,76 +39,76 @@ function applyThemeToBook(bookElement, theme) {
  * @param {string} theme - The selected theme ('day' or 'night')
  */
 function showBooks(start, end, bookList, theme) {
-    // Find the element in the HTML document with the attribute 'data-list-items' and assign it to the variable booksContainer.
-    const booksContainer = document.querySelector('[data-list-items]');
+  // Find the element in the HTML document with the attribute 'data-list-items' and assign it to the variable booksContainer.
+  const booksContainer = document.querySelector("[data-list-items]");
 
-    // Loop from 'start' to 'end'.
-    for (let i = start; i < end; i++) {
-        const book = bookList[i];
-        if (!book) break;
+  // Loop from 'start' to 'end'.
+  for (let i = start; i < end; i++) {
+    const book = bookList[i];
+    if (!book) break;
 
-        // Create a button element and add the class 'preview' to it.
-        const bookElement = document.createElement('button');
-        bookElement.classList.add('preview');
+    // Create a button element and add the class 'preview' to it.
+    const bookElement = document.createElement("button");
+    bookElement.classList.add("preview");
 
-        // Create a container for book information.
-        const bookInfoContainer = document.createElement('div');
-        bookInfoContainer.classList.add('book-info');
+    // Create a container for book information.
+    const bookInfoContainer = document.createElement("div");
+    bookInfoContainer.classList.add("book-info");
 
-        // Create a flex container for horizontal alignment
-        const flexContainer = document.createElement('div');
-        flexContainer.style.display = 'flex';
-        flexContainer.style.alignItems = 'center';
+    // Create a flex container for horizontal alignment
+    const flexContainer = document.createElement("div");
+    flexContainer.style.display = "flex";
+    flexContainer.style.alignItems = "center";
 
-        // Create an image element, add the class 'preview__image', and set its source and alt attributes.
-        const imgElement = document.createElement('img');
-        imgElement.classList.add('preview__image');
-        imgElement.src = book.image;
-        imgElement.alt = book.title;
+    // Create an image element, add the class 'preview__image', and set its source and alt attributes.
+    const imgElement = document.createElement("img");
+    imgElement.classList.add("preview__image");
+    imgElement.src = book.image;
+    imgElement.alt = book.title;
 
-        // Create a container for book title and author
-        const textContainer = document.createElement('div');
-        textContainer.classList.add('text-container');
-        
-        // Create an h3 element for the title, add the class 'preview__title', and set its text content.
-        const titleElement = document.createElement('h3');
-        titleElement.classList.add('preview__title');
-        titleElement.textContent = book.title;
+    // Create a container for book title and author
+    const textContainer = document.createElement("div");
+    textContainer.classList.add("text-container");
 
-        // Get the author's ID and name from the 'authors' object.
-        const authorId = book.author;
-        const authorName = authors[authorId];
+    // Create an h3 element for the title, add the class 'preview__title', and set its text content.
+    const titleElement = document.createElement("h3");
+    titleElement.classList.add("preview__title");
+    titleElement.textContent = book.title;
 
-        // Create a paragraph element for the author, add the class 'preview__author', and set its text content.
-        const authorElement = document.createElement('p');
-        authorElement.classList.add('preview__author');
-        authorElement.textContent = `Author: ${authorName}`;
+    // Get the author's ID and name from the 'authors' object.
+    const authorId = book.author;
+    const authorName = authors[authorId];
 
-        // Adjust margin-right to move the text a little further to the right
-        textContainer.style.marginLeft = '20px';
+    // Create a paragraph element for the author, add the class 'preview__author', and set its text content.
+    const authorElement = document.createElement("p");
+    authorElement.classList.add("preview__author");
+    authorElement.textContent = `Author: ${authorName}`;
 
-        // Append image to flex container
-        flexContainer.appendChild(imgElement);
+    // Adjust margin-right to move the text a little further to the right
+    textContainer.style.marginLeft = "20px";
 
-        // Append title and author to text container
-        textContainer.appendChild(titleElement);
-        textContainer.appendChild(authorElement);
+    // Append image to flex container
+    flexContainer.appendChild(imgElement);
 
-        // Append text container to flex container
-        flexContainer.appendChild(textContainer);
+    // Append title and author to text container
+    textContainer.appendChild(titleElement);
+    textContainer.appendChild(authorElement);
 
-        // Append the flex container to the book information container.
-        bookInfoContainer.appendChild(flexContainer);
+    // Append text container to flex container
+    flexContainer.appendChild(textContainer);
 
-        // Append the book information container to the button element.
-        bookElement.appendChild(bookInfoContainer);
+    // Append the flex container to the book information container.
+    bookInfoContainer.appendChild(flexContainer);
 
-        // Apply the specified theme to the book element.
-        applyThemeToBook(bookElement, theme);
+    // Append the book information container to the button element.
+    bookElement.appendChild(bookInfoContainer);
 
-        // Append the book element to the books container in the HTML document.
-        booksContainer.appendChild(bookElement);
-    }
+    // Apply the specified theme to the book element.
+    applyThemeToBook(bookElement, theme);
+
+    // Append the book element to the books container in the HTML document.
+    booksContainer.appendChild(bookElement);
+  }
 }
 
 /**
@@ -119,7 +118,6 @@ function showBooks(start, end, bookList, theme) {
 function updateShowMoreButton(totalResults) {
   // Check if there are current search results.
   if (currentSearchResults.length > 0) {
-
     // Calculate the start and end indices for displaying a subset of search results.
     const start = currentSearchPage * booksPerPage;
     const end = start + booksPerPage;
@@ -139,7 +137,7 @@ function updateShowMoreButton(totalResults) {
     // Disable the showMoreButton if there are no remaining books.
     showMoreButton.disabled = remainingBooks <= 0;
   } else {
-     // Calculate the start and end indices for displaying a subset of search results.
+    // Calculate the start and end indices for displaying a subset of search results.
     const start = currentPage * booksPerPage;
     const end = start + booksPerPage;
 
@@ -164,35 +162,35 @@ function updateShowMoreButton(totalResults) {
  * Loads more books when the "Show More" button is clicked
  */
 function showMoreBooks() {
-    // Check if there are current search results.
-    if (currentSearchResults.length > 0) {
-      // Increment the current search page.
-      currentSearchPage++;
+  // Check if there are current search results.
+  if (currentSearchResults.length > 0) {
+    // Increment the current search page.
+    currentSearchPage++;
 
-      // Calculate the start and end indices for displaying the next subset of search results.
-      const start = (currentSearchPage - 1) * booksPerPage;
-      const end = start + booksPerPage;
+    // Calculate the start and end indices for displaying the next subset of search results.
+    const start = (currentSearchPage - 1) * booksPerPage;
+    const end = start + booksPerPage;
 
-      // Call the showBooks function with the specified range of search results and the current theme.
-      showBooks(start, end, currentSearchResults, theme);
+    // Call the showBooks function with the specified range of search results and the current theme.
+    showBooks(start, end, currentSearchResults, theme);
 
-      // Update the "Show More" button based on the length of the current search results.
-      updateShowMoreButton(currentSearchResults.length);
-    } else {
-      // Increment the current page.
-      currentPage++;
+    // Update the "Show More" button based on the length of the current search results.
+    updateShowMoreButton(currentSearchResults.length);
+  } else {
+    // Increment the current page.
+    currentPage++;
 
-      // Calculate the start and end indices for displaying the next subset of books.
-      const start = (currentPage - 1) * booksPerPage;
-      const end = start + booksPerPage;
+    // Calculate the start and end indices for displaying the next subset of books.
+    const start = (currentPage - 1) * booksPerPage;
+    const end = start + booksPerPage;
 
-      // Call the showBooks function with the specified range of books and the current theme.
-      showBooks(start, end, books, theme);
+    // Call the showBooks function with the specified range of books and the current theme.
+    showBooks(start, end, books, theme);
 
-      // Update the "Show More" button based on the total number of books.
-      updateShowMoreButton(books.length);
-    }
+    // Update the "Show More" button based on the total number of books.
+    updateShowMoreButton(books.length);
   }
+}
 
 // Event listener for "Show More" button click
 const showMoreButton = document.querySelector("[data-list-button]");
@@ -202,15 +200,13 @@ showMoreButton.addEventListener("click", showMoreBooks);
 showBooks(0, booksPerPage, books);
 updateShowMoreButton(books.length);
 
-
 // Event listener for DOMContentLoaded to set up overlay functionality for summary of book
 document.addEventListener("DOMContentLoaded", () => {
-
   // Get references to various elements in the overlay.
   const overlay = document.querySelector(".overlay");
   const overlayImage = overlay.querySelector(".overlay__image");
   const overlayTitle = overlay.querySelector(".overlay__title");
-  const overlayBlur = document.querySelector('[data-list-blur]');
+  const overlayBlur = document.querySelector("[data-list-blur]");
   const overlaySubtitle = overlay.querySelector(
     ".overlay__data[data-list-subtitle]"
   );
@@ -222,10 +218,10 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   /**
- * Opens the overlay and displays book details
- * @param {number} index - The index of the selected book
- * @param {boolean} isSearchPage - Indicates if the current page is a search result page
- */
+   * Opens the overlay and displays book details
+   * @param {number} index - The index of the selected book
+   * @param {boolean} isSearchPage - Indicates if the current page is a search result page
+   */
   function openOverlay(index, isSearchPage) {
     // Determine the selected book based on the index and whether it's a search page.
     const selectedBook = isSearchPage
@@ -249,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", (event) => {
     const clickedElement = event.target;
     const previewElement = clickedElement.closest(".preview");
-    
+
     // If a preview element was clicked, open the overlay with its corresponding book details.
     if (previewElement) {
       const index = Array.from(previewElement.parentElement.children).indexOf(
@@ -279,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchAuthorsSelect = document.querySelector("[data-search-authors]");
   const searchResultsDiv = document.querySelector("[data-list-items]");
 
- // Function to show the search overlay
+  // Function to show the search overlay
   function showSearchOverlay() {
     searchOverlay.showModal();
   }
@@ -292,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Event listener to show the search overlay when search button is clicked
   searchButton.addEventListener("click", showSearchOverlay);
-  
+
   // Event listener to hide the search overlay when cancel button is clicked
   searchCancel.addEventListener("click", hideSearchOverlay);
 
@@ -378,9 +374,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /**
- * Displays search results based on the user's search criteria
- * @param {Array} results - The list of search results to display
- */
+   * Displays search results based on the user's search criteria
+   * @param {Array} results - The list of search results to display
+   */
   function displaySearchResults(results) {
     const searchResultsDiv = document.querySelector("[data-list-items]");
     searchResultsDiv.innerHTML = "";
@@ -452,9 +448,9 @@ document.addEventListener("DOMContentLoaded", function () {
   settingsCancel.addEventListener("click", hideSettingsOverlay);
 
   /**
- * Handles theme update when user changes theme selection
- * @param {Event} event - The event object
- */
+   * Handles theme update when user changes theme selection
+   * @param {Event} event - The event object
+   */
   const themeUpdate = (event) => {
     event.preventDefault();
     const themeSelect =
