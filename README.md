@@ -2,8 +2,8 @@
 
 Author : Lindsay Pillay
 
-WEB APPLICATION :
-This web app acts as an online library. It allows users to view books and sort them by title, genre and author. It also contains a dark/light mode toggle for improved user experience.
+Book Connect :
+This book connect app acts as an online library. It allows users to view previews of books and sort them by title, genre and author. It also contains a dark/light mode toggle for improved user experience.
 
 Programming languages used: HTML CSS JavaScript
 
